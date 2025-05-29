@@ -1,0 +1,12 @@
+:root {
+    --header-body-color: #36add1;
+    --header-body-hover-color: #127492;
+    --advertise-color: #292b2c;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /* height: 100vh; */
+}

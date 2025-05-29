@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tarunno</title>
+  </head>
+  <body
+    class="bg-white text-black dark:bg-[#1D1D1D] dark:text-white transition-colors duration-300"
+  >
+    <div id="root"></div>
+    <script>
+      // Optional: persist theme using localStorage
+      const userTheme = localStorage.getItem("theme");
+      if (userTheme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
