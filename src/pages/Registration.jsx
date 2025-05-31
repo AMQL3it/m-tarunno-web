@@ -51,9 +51,8 @@ const Registration = () => {
 
     try {
       const response = await authService.register(userInfo);
-      console.log(response);
 
-      if (response.data.success) {
+      if (response.success) {
         SweetAlert.successAlert("Registration successful!");
         navigate("/login");
       }
