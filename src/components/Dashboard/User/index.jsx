@@ -3,11 +3,13 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import apiService from "../../../services/apiService";
 import SweetAlert from "../../../utils/SweetAlert";
 import AddButton from "../../General/AddButton";
+import LoadingSpinner from "../../General/LoadingSpinner";
 import Pagination from "../../General/Pagination";
 import TitleLine from "../../General/TitleLine";
 import UserForm from "./UserForm";
 
 const User = () => {
+  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +33,7 @@ const User = () => {
       const data = await apiService.getAll("users"); // 🔥 await added
       // console.log(data);
       setUsers(data.data); // ✅ use actual API data
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching categories:", error);
       // setUsers(fallback); // 🛠 fallback to dummy if API fails
@@ -178,7 +181,16 @@ const User = () => {
             </tr>
           </thead>
           <tbody>
-            {displayedUsers.length > 0 ? (
+            {loading ? (
+              <tr>
+                <td
+                  colSpan={tableHead.length}
+                  className="px-4 py-6 text-center"
+                >
+                  <LoadingSpinner />
+                </td>
+              </tr>
+            ) : displayedUsers.length > 0 ? (
               displayedUsers.map((user) => (
                 <tr
                   key={user.id}

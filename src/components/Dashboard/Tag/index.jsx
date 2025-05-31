@@ -3,11 +3,13 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import tagService from "../../../services/tagService";
 import SweetAlert from "../../../utils/SweetAlert";
 import AddButton from "../../General/AddButton";
+import LoadingSpinner from "../../General/LoadingSpinner";
 import Pagination from "../../General/Pagination";
 import TitleLine from "../../General/TitleLine";
 import EditForm from "./EditForm";
 
 const Tag = () => {
+  const [loading, setLoading] = useState(true);
   const [tags, setTags] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,6 +31,7 @@ const Tag = () => {
         response: tag.is_active ? "Enable" : "Disable",
       }));
       setTags(formattedTags);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching tags:", error);
       SweetAlert.errorAlert("Failed to fetch tags!");
@@ -140,7 +143,16 @@ const Tag = () => {
             </tr>
           </thead>
           <tbody>
-            {displayedTags.length > 0 ? (
+            {loading ? (
+              <tr>
+                <td
+                  colSpan={tableHead.length}
+                  className="px-4 py-6 text-center"
+                >
+                  <LoadingSpinner />
+                </td>
+              </tr>
+            ) : displayedTags.length > 0 ? (
               displayedTags.map((row, index) => (
                 <tr
                   key={row.id}

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
+import getImagePath from "../../utils/getImagePath";
+import LoadingSpinner from "../General/LoadingSpinner";
 import Meta from "../General/Meta";
 import NewsTag from "../General/NewsTag";
 import Overlay from "../General/Overlay";
 import TitleLine from "../General/TitleLine";
-import getImagePath from "../../utils/getImagePath";
 
 const GalleryDisplay = ({ category, allposts }) => {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const GalleryDisplay = ({ category, allposts }) => {
     setPosts(latestPosts);
     setLoading(false);
     console.log(getImagePath(allposts[0].image));
-    
   }, [allposts]);
 
   const handleContinue = async (id, views) => {
@@ -27,11 +27,7 @@ const GalleryDisplay = ({ category, allposts }) => {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-60">
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (

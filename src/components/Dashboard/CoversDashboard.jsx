@@ -4,6 +4,7 @@ import categoryService from "../../services/categoryService";
 import coverService from "../../services/coverService";
 import postService from "../../services/postService";
 import SweetAlert from "../../utils/SweetAlert";
+import LoadingSpinner from "../General/LoadingSpinner";
 
 const CoversDashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -16,7 +17,7 @@ const CoversDashboard = () => {
     suggestions: [],
   });
 
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -43,6 +44,8 @@ const CoversDashboard = () => {
 
       setPosts(postRes.data);
       setCategories(categoryRes.data);
+
+      setLoading(false);
     } catch (err) {
       console.error("Error loading homepage data", err);
       toast.error("Failed to load cover data");
@@ -89,6 +92,8 @@ const CoversDashboard = () => {
       toast.error("Failed to save changes.");
     }
   };
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 space-y-4">

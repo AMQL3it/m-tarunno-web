@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { FaComment, FaEye, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
+import getImagePath from "../../utils/getImagePath";
 import getPreviewText from "../../utils/getPreviewText";
 import ContinueButton from "../General/ContinueButton";
+import LoadingSpinner from "../General/LoadingSpinner";
 import Meta from "../General/Meta";
 import NewsTag from "../General/NewsTag";
 import TitleLine from "../General/TitleLine";
-import getImagePath from "../../utils/getImagePath";
 
 const YouTubeDisplay = ({ category, allposts }) => {
   const navigate = useNavigate();
@@ -29,11 +30,7 @@ const YouTubeDisplay = ({ category, allposts }) => {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-60">
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin dark:border-blue-400 dark:border-t-transparent"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (

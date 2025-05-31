@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import postService from "../../services/postService";
 import Divider from "../General/Divider";
+import LoadingSpinner from "../General/LoadingSpinner";
 import NewsItem from "../NewsItem";
 
 const NewsFeed = () => {
@@ -48,11 +49,7 @@ const NewsFeed = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-60">
-        <div className="w-12 h-12 border-4 border-blue-500 dark:border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (posts.length === 0) {

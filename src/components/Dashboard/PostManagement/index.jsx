@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import postService from "../../../services/postService";
+import getImagePath from "../../../utils/getImagePath";
 import getPreviewText from "../../../utils/getPreviewText";
 import SweetAlert from "../../../utils/SweetAlert";
 import AddButton from "../../General/AddButton";
+import LoadingSpinner from "../../General/LoadingSpinner";
 import Pagination from "../../General/Pagination";
 import TitleLine from "../../General/TitleLine";
 import PostForm from "./PostForm";
-import getImagePath from "../../../utils/getImagePath";
 
 const PostManagement = () => {
+  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const tableHead = [
+    "ID",
+    "Title",
+    "Author",
+    "Content",
+    "Image",
+    "Type",
+    "Activity",
+  ];
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -39,6 +50,7 @@ const PostManagement = () => {
         tag_ids: p.tags.map((t) => t.id) || [],
       }));
       setPosts(formatted);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
       setPosts([]);
@@ -156,18 +168,24 @@ const PostManagement = () => {
         <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-700 rounded-lg overflow-hidden shadow-sm border dark:border-gray-700">
           <thead className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
             <tr>
-              <th className="px-4 py-2 text-left">ID</th>
-              <th className="px-4 py-2 text-left">Title</th>
-              <th className="px-4 py-2 text-left">Author</th>
-              <th className="px-4 py-2 text-left">Content</th>
-              <th className="px-4 py-2 text-left">Image</th>
-              <th className="px-4 py-2 text-left">Type</th>
-              {/* <th className="px-4 py-2 text-left">Active</th> */}
-              <th className="px-4 py-2 text-center">Actions</th>
+              {tableHead.map((head, index) => (
+                <th key={index} className="px-4 py-2 text-left">
+                  {head}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-800 text-sm bg-white dark:bg-gray-900">
-            {displayedPosts.length ? (
+            {loading ? (
+              <tr>
+                <td
+                  colSpan={tableHead.length}
+                  className="px-4 py-6 text-center"
+                >
+                  <LoadingSpinner />
+                </td>
+              </tr>
+            ) : displayedPosts.length ? (
               displayedPosts.map((p, idx) => (
                 <tr
                   key={idx}

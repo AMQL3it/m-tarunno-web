@@ -13,6 +13,7 @@ import {
 import categoryService from "../../../services/categoryService";
 import SweetAlert from "../../../utils/SweetAlert";
 import AddButton from "../../General/AddButton";
+import LoadingSpinner from "../../General/LoadingSpinner";
 import Pagination from "../../General/Pagination";
 import TitleLine from "../../General/TitleLine";
 import EditForm from "./EditForm";
@@ -29,6 +30,7 @@ const iconMap = {
 };
 
 const Category = () => {
+  const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,6 +70,7 @@ const Category = () => {
       }));
 
       setCategories(formattedCategories);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -167,6 +170,10 @@ const Category = () => {
     }
   };
 
+  // if (loading) {
+  //   return <LoadingSpinner />;
+  // }
+
   return (
     <>
       <TitleLine title="Categories">
@@ -185,7 +192,18 @@ const Category = () => {
             </tr>
           </thead>
           <tbody>
-            {displayedCategories.length > 0 ? (
+            {/* Loading Spinner */}
+            {loading ? (
+              <tr>
+                <td
+                  colSpan={tableHead.length}
+                  className="px-4 py-6 text-center"
+                >
+                  <LoadingSpinner />
+                </td>
+              </tr>
+            ) : displayedCategories.length > 0 ? (
+              // Display Data
               displayedCategories.map((row, index) => (
                 <tr
                   key={index}
@@ -233,12 +251,13 @@ const Category = () => {
                 </tr>
               ))
             ) : (
+              // No Data
               <tr>
                 <td
                   colSpan={tableHead.length}
-                  className="text-center py-4 text-gray-500 dark:text-gray-300"
+                  className="text-center py-6 text-gray-500 dark:text-gray-300"
                 >
-                  No data found
+                  No data found.
                 </td>
               </tr>
             )}

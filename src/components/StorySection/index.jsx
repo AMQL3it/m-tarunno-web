@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
+import LoadingSpinner from "../General/LoadingSpinner";
 import StoryCard from "./StoryCard";
 
 const StorySection = ({ stories }) => {
@@ -48,11 +49,7 @@ const StorySection = ({ stories }) => {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-60 dark:bg-gray-900 dark:text-gray-200">
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (stories.length === 0) {
