@@ -5,7 +5,6 @@ import getPreviewText from "../../utils/getPreviewText";
 import ContinueButton from "../General/ContinueButton";
 import Meta from "../General/Meta";
 import NewsTag from "../General/NewsTag";
-import getImagePath from "../../utils/getImagePath";
 
 const NewsItem = ({ news }) => {
   const navigate = useNavigate();
@@ -26,17 +25,11 @@ const NewsItem = ({ news }) => {
         ></iframe>
       ) : (
         <img
-          src={getImagePath(news.image)}
+          src={news.image}
           alt={news.title}
           className="w-full h-52 md:h-64 object-cover rounded-lg"
         />
       )}
-      {/* <img
-        src={getImagePath(news.image)}
-        alt={news.title}
-        onClick={() => handleContinue(news.state?.views || 0)}
-        className="w-full h-52 md:h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition"
-      /> */}
 
       <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug">
         {news.title}

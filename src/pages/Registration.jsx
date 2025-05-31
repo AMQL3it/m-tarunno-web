@@ -51,14 +51,15 @@ const Registration = () => {
 
     try {
       const response = await authService.register(userInfo);
-      // console.log(response);
+      console.log(response);
 
-      if (response.success) {
+      if (response.data.success) {
         SweetAlert.successAlert("Registration successful!");
         navigate("/login");
       }
     } catch (error) {
       console.error("Error registering user:", error);
+      SweetAlert.errorAlert(`Registration failed! ${error.message}`);
     }
 
     // API call and logic here

@@ -9,7 +9,6 @@ import SweetAlert from "../../utils/SweetAlert";
 import WriteComment from "../Comment/WriteComment";
 import Meta from "../General/Meta";
 import NewsTag from "../General/NewsTag";
-import getImagePath from "../../utils/getImagePath";
 
 const NewsCard = () => {
   const { newsId } = useParams();
@@ -42,8 +41,6 @@ const NewsCard = () => {
         tags: result.data.tags,
         category: result.data.category.name,
       };
-
-      // console.log(newsData);
 
       setNews(newsData);
       setViews(result.data.state?.views || 0);
@@ -156,16 +153,11 @@ const NewsCard = () => {
         ></iframe>
       ) : (
         <img
-          src={getImagePath(news.image)}
+          src={news.image}
           alt={news.title}
           className="w-full h-64 object-cover rounded-md mb-4"
         />
       )}
-      {/* <img
-        src={getImagePath(news.image)}
-        alt={news.title}
-        className="w-full h-64 object-cover rounded-md mb-4"
-      /> */}
 
       <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
         {news.title}

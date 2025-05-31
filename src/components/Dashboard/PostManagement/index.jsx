@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import postService from "../../../services/postService";
-import getImagePath from "../../../utils/getImagePath";
 import getPreviewText from "../../../utils/getPreviewText";
 import SweetAlert from "../../../utils/SweetAlert";
 import AddButton from "../../General/AddButton";
@@ -205,7 +204,7 @@ const PostManagement = () => {
                   <td className="px-4 py-2">
                     {p.image ? (
                       <img
-                        src={getImagePath(p.image)}
+                        src={p.image}
                         width={80}
                         height={80}
                         alt="cover"

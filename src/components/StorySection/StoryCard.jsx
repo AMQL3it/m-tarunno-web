@@ -1,4 +1,3 @@
-import getImagePath from "../../utils/getImagePath";
 import Meta from "../General/Meta";
 import NewsTag from "../General/NewsTag";
 
@@ -18,7 +17,7 @@ const StoryCard = ({ story }) => {
           ></iframe>
         ) : (
           <img
-            src={getImagePath(story.image)}
+            src={story.image}
             alt={story.title}
             className="w-full h-full object-cover rounded-md"
             onError={(e) => (e.target.src = "/fallback.jpg")}

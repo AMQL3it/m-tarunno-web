@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
-import getImagePath from "../../utils/getImagePath";
 import LoadingSpinner from "../General/LoadingSpinner";
 import Meta from "../General/Meta";
 import NewsTag from "../General/NewsTag";
@@ -18,7 +17,6 @@ const GalleryDisplay = ({ category, allposts }) => {
     const latestPosts = allposts.slice(0, 6);
     setPosts(latestPosts);
     setLoading(false);
-    console.log(getImagePath(allposts[0].image));
   }, [allposts]);
 
   const handleContinue = async (id, views) => {
@@ -45,11 +43,6 @@ const GalleryDisplay = ({ category, allposts }) => {
               className="relative rounded overflow-hidden shadow hover:shadow-md transition-all cursor-pointer"
               onClick={() => handleContinue(item.id, item.state?.views || 0)}
             >
-              {/* <img
-                src={getImagePath(item.image)}
-                alt={item.title}
-                className="w-full h-full object-cover"
-              /> */}
               {item.type === "video" ? (
                 <iframe
                   src={item.media}
@@ -59,7 +52,7 @@ const GalleryDisplay = ({ category, allposts }) => {
                 ></iframe>
               ) : (
                 <img
-                  src={getImagePath(item.image)}
+                  src={item.image}
                   alt={item.title}
                   className="h-full w-full object-cover"
                 />

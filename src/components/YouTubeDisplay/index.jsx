@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { FaComment, FaEye, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
-import getImagePath from "../../utils/getImagePath";
 import getPreviewText from "../../utils/getPreviewText";
 import ContinueButton from "../General/ContinueButton";
 import LoadingSpinner from "../General/LoadingSpinner";
@@ -55,16 +54,12 @@ const YouTubeDisplay = ({ category, allposts }) => {
                   ></iframe>
                 ) : (
                   <img
-                    src={getImagePath(activePost.image)}
+                    src={activePost.image}
                     alt={activePost.title}
                     className="h-64 w-full object-cover"
                   />
                 )}
-                {/* <img
-                  src={getImagePath(activePost.image)}
-                  alt={activePost.title}
-                  className="w-full h-64 object-cover rounded"
-                /> */}
+
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   {activePost.title}
                 </h3>
@@ -139,16 +134,12 @@ const YouTubeDisplay = ({ category, allposts }) => {
                     ></iframe>
                   ) : (
                     <img
-                      src={getImagePath(post.image)}
+                      src={post.image}
                       alt={post.title}
                       className="w-24 h-16 object-cover"
                     />
                   )}
-                  {/* <img
-                    src={getImagePath(post.image)}
-                    alt={post.title}
-                    className="w-24 h-16 object-cover rounded"
-                  /> */}
+
                   <div className="flex-1">
                     <h4 className="text-sm font-medium line-clamp-2 text-gray-800 dark:text-gray-100">
                       {post.title}

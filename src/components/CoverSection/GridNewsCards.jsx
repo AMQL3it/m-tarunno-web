@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { FaCalendarCheck, FaUserTie } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
-import getImagePath from "../../utils/getImagePath";
 import NewsTag from "../General/NewsTag";
 
 const GridNewsCards = ({ gridNews }) => {
@@ -50,7 +49,7 @@ const GridNewsCards = ({ gridNews }) => {
             ></iframe>
           ) : (
             <img
-              src={getImagePath(item.image)}
+              src={item.image}
               alt={item.title}
               className="w-full h-full object-cover block"
             />

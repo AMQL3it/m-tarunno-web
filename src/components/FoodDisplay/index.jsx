@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
-import getImagePath from "../../utils/getImagePath";
 import getPreviewText from "../../utils/getPreviewText";
 import ContinueButton from "../General/ContinueButton";
 import LoadingSpinner from "../General/LoadingSpinner";
@@ -47,11 +46,6 @@ const FoodDisplay = ({ category, allposts }) => {
           {/* Main Featured Post */}
           {activePost && (
             <div className="relative rounded overflow-hidden shadow hover:shadow-md transition-all">
-              {/* <img
-                src={getImagePath(activePost.image)}
-                alt={activePost.title}
-                className="w-full h-full object-cover"
-              /> */}
               {activePost.type === "video" ? (
                 <iframe
                   src={activePost.media}
@@ -61,7 +55,7 @@ const FoodDisplay = ({ category, allposts }) => {
                 ></iframe>
               ) : (
                 <img
-                  src={getImagePath(activePost.image)}
+                  src={activePost.image}
                   alt={activePost.title}
                   className="h-full w-full object-cover"
                 />
@@ -128,16 +122,12 @@ const FoodDisplay = ({ category, allposts }) => {
                     ></iframe>
                   ) : (
                     <img
-                      src={getImagePath(post.image)}
+                      src={post.image}
                       alt={post.title}
                       className="h-36 w-full object-cover"
                     />
                   )}
-                  {/* <img
-                    src={getImagePath(post.image)}
-                    alt={post.title}
-                    className="h-36 w-full object-cover"
-                  /> */}
+
                   <div className="p-2">
                     <h4 className="text-sm font-medium line-clamp-2 text-gray-900 dark:text-gray-100">
                       {post.title}
