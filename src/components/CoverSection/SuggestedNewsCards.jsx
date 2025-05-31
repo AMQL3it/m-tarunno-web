@@ -1,8 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Meta from "../General/Meta";
-
 import commentService from "../../services/commentService";
+import Meta from "../General/Meta";
 
 const SuggestedNewsCards = ({ suggestedNews }) => {
   const navigate = useNavigate();
@@ -24,24 +23,17 @@ const SuggestedNewsCards = ({ suggestedNews }) => {
   }
 
   return (
-    <div className="w-full bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
-      <div className="flex gap-4 min-w-[600px] flex-row sm:min-w-0">
+    <div className="w-full bg-gray-100 dark:bg-gray-900 p-4 rounded-xl overflow-x-auto shadow-sm">
+      {/* Responsive Layout */}
+      <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row gap-4 flex-wrap">
         {suggestedNews.map((item) => (
           <div
             key={item.id}
-            className="flex bg-white dark:bg-gray-900 rounded-md shadow-md dark:shadow-black/50 overflow-hidden h-[150px] min-w-[280px] sm:min-w-0 sm:w-full sm:h-auto cursor-pointer"
+            onClick={() => handleContinue(item.id, item.views)}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer w-full sm:w-full md:w-[280px] lg:w-[280px] xl:w-[280px] 2xl:w-[280px]"
           >
-            {/* <img
-              src={getImagePath(item.image)}
-              alt={item.title}
-              onError={(e) => (e.target.src = "/fallback.jpg")}
-              className="w-1/2 h-full object-cover sm:w-1/3 sm:h-[100px]"
-            /> */}
-            <div className="flex flex-col justify-between p-3 w-full sm:w-auto">
-              <p
-                className="text-sm font-semibold cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition line-clamp-3 text-gray-900 dark:text-gray-100"
-                onClick={() => handleContinue(item.id, item.views)}
-              >
+            <div className="p-4 h-full flex flex-col justify-between">
+              <p className="text-base font-semibold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition line-clamp-3">
                 {item.title}
               </p>
               <Meta
@@ -51,7 +43,7 @@ const SuggestedNewsCards = ({ suggestedNews }) => {
                   year: "numeric",
                 })}
                 author={item.author}
-                className="text-gray-700 dark:text-gray-400"
+                className="text-sm text-gray-600 dark:text-gray-400 mt-3"
               />
             </div>
           </div>

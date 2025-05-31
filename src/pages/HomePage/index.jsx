@@ -84,6 +84,7 @@ const HomePage = () => {
     <>
       <BreakingNews bnews={breaking} />
       <CoverSection coverInfo={coverInfo} />
+      {/* <SuggestedNewsCards suggestedNews={coverInfo.suggested} /> */}
 
       {categories.map((category) => {
         const filteredPosts = posts.filter(

@@ -2,7 +2,7 @@ import { FaCalendarCheck, FaUserTie } from "react-icons/fa";
 
 const Meta = ({ date, author }) => {
   return (
-    <div className="text-xs flex gap-2 text-gray-600 dark:text-gray-400">
+    <div className="text-xs flex flex-wrap gap-2 text-gray-600 dark:text-gray-400">
       <span className="flex items-center gap-1.5">
         <FaCalendarCheck className="text-sm" />
         {date}

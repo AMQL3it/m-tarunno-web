@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { FaCalendarCheck, FaUserTie } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import commentService from "../../services/commentService";
 import getImagePath from "../../utils/getImagePath";
-import Meta from "../General/Meta";
 import NewsTag from "../General/NewsTag";
 
 const GridNewsCards = ({ gridNews }) => {
@@ -15,29 +15,6 @@ const GridNewsCards = ({ gridNews }) => {
       setLoading(false);
     }
   }, [gridNews]);
-
-  // const fetchPosts = async () => {
-  //   try {
-  //     const result = await postService.getAll();
-  //     const formatted = result.data.map((p) => ({
-  //       id: p.id,
-  //       title: p.title,
-  //       content: p.content,
-  //       image: p.image,
-  //       createdAt: p.createdAt,
-  //       author: p.author,
-  //       tags: p.tags || [],
-  //       category: p.category?.name || "Uncategorized",
-  //     }));
-
-  //     const latestPosts = formatted.slice(0, 4);
-  //     setPosts(latestPosts);
-  //     setLoading(false);
-  //   } catch (err) {
-  //     console.error("Failed to fetch posts", err);
-  //     setLoading(false);
-  //   }
-  // };
 
   const handleContinue = async (id, views) => {
     await commentService.addState(id, { views: views + 1 });
@@ -64,11 +41,6 @@ const GridNewsCards = ({ gridNews }) => {
           className="relative rounded-md overflow-hidden cursor-pointer"
           onClick={() => handleContinue(item.id, item.views)}
         >
-          {/* <img
-            src={getImagePath(item.image)}
-            alt="news"
-            className="w-full h-full object-cover"
-          /> */}
           {item.type === "video" ? (
             <iframe
               src={item.media}
@@ -89,15 +61,31 @@ const GridNewsCards = ({ gridNews }) => {
                 <NewsTag tags={item.tags.map((t) => t.name)} />
               </div>
             )}
-            <div className="text-sm font-semibold">{item.title}</div>
-            <Meta
+            <div className="text-[11px] 2xl:text-sm xl:text-sm lg:text-sm md:text-sm font-semibold">
+              {item.title}
+            </div>
+            <div className="text-xs flex-wrap gap-2 text-gray-600 dark:text-gray-400">
+              <span className="flex items-center gap-1.5">
+                <FaCalendarCheck className="text-sm" />
+                {new Date(item.createdAt).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <FaUserTie className="text-sm" />
+                {item.author}
+              </span>
+            </div>
+            {/* <Meta
               date={new Date(item.createdAt).toLocaleDateString("en-GB", {
                 day: "2-digit",
                 month: "long",
                 year: "numeric",
               })}
               author={item.author}
-            />
+            /> */}
           </div>
         </div>
       ))}

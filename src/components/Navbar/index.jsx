@@ -55,7 +55,7 @@ const Navbar = ({ navlist }) => {
           </ul>
 
           {/* Search bar */}
-          <div className="mt-3 md:mt-0 md:ml-4 flex items-center w-full md:w-auto">
+          {/* <div className="mt-3 md:mt-0 md:ml-4 flex items-center w-full md:w-auto">
             <input
               type="text"
               placeholder="Search..."
@@ -64,7 +64,7 @@ const Navbar = ({ navlist }) => {
             <button className="bg-[#116A7B] hover:bg-[#0F4C5C] text-white px-4 py-1 rounded-r transition duration-300">
               Search
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>
