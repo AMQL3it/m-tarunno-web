@@ -6,7 +6,6 @@ import useAuthUser from "../../hooks/useAuthUser";
 import authService from "../../services/authService";
 import { getBanglaDate } from "../../utils/getBanglaDate";
 import { getBanglaHijriDate } from "../../utils/getBanglaHijriDate";
-import ThemeToggle from "../ThemeToggle";
 
 const Header = () => {
   const today = new Date();
@@ -55,19 +54,21 @@ const Header = () => {
         {/* Auth Links */}
         <div className="flex items-center gap-3 font-medium">
           {user ? (
-            <div
-              
-              className="flex items-center gap-2 cursor-pointer"
-            >
+            <div className="flex items-center gap-2 cursor-pointer">
               <span>{user.name}</span>
               {user.role !== "user" && (
                 <>
-                <span className="text-xs text-gray-400">|</span>
-                <span className="text-xs text-gray-400" onClick={() => navigate("/dashboard")}>({user.role})</span>
+                  <span className="text-xs text-gray-400">|</span>
+                  <span
+                    className="text-xs text-gray-400"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    ({user.role})
+                  </span>
                 </>
               )}
 
-              <FaRightToBracket onClick={handleLogout}/>
+              <FaRightToBracket title="Logout" onClick={handleLogout} />
             </div>
           ) : (
             <>
@@ -89,9 +90,9 @@ const Header = () => {
             </>
           )}
 
-          <div className="flex items-center gap-2 position-absolute">
+          {/* <div className="flex items-center gap-2 position-absolute">
             <ThemeToggle />
-          </div>
+          </div> */}
         </div>
       </div>
 

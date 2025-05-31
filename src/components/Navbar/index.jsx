@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaBars, FaHome } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "../ThemeToggle";
 // import ThemeToggle from "@/components/ui/ThemeToggle"; // Uncomment when using
 
 const Navbar = ({ navlist }) => {
@@ -65,6 +66,10 @@ const Navbar = ({ navlist }) => {
               Search
             </button>
           </div> */}
+
+          <div className="flex items-center gap-2 position-absolute">
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </nav>
