@@ -58,7 +58,10 @@ const Registration = () => {
       }
     } catch (error) {
       console.error("Error registering user:", error);
-      SweetAlert.errorAlert(`Registration failed! ${error.message}`);
+      const messages =
+        error.response?.data?.errors?.map((err) => err.message).join("\n") ||
+        "Something went wrong.";
+      SweetAlert.errorAlert(messages);
     }
 
     // API call and logic here
