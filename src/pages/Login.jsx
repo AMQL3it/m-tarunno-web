@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/sign-in-animate.svg";
 import authService from "../services/authService";
@@ -11,6 +12,8 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({ username: "", password: "" });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -97,14 +100,14 @@ const Login = () => {
             </>
 
             {/* Password Input */}
-            <>
+            <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={userInfo.password}
                 name="password"
                 onChange={handleChange}
-                className={`px-3 py-2 text-sm bg-[#1F1F1F] text-white border ${
+                className={`w-full px-3 py-2 text-sm bg-[#1F1F1F] text-white border ${
                   errors.password ? "border-red-500" : "border-gray-700"
                 } rounded focus:outline-none focus:ring-2 ${
                   errors.password
@@ -112,17 +115,24 @@ const Login = () => {
                     : "focus:ring-green-500"
                 }`}
               />
-              {errors.password && (
-                <p className="text-xs text-red-500 mt-1 text-left">
-                  {errors.password}
-                </p>
-              )}
-            </>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
+              >
+                <FaEyeSlash className="text-gray-500" />
+              </button>
+            </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="px-3 py-2 text-sm font-medium bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+              disabled={!userInfo.username || !userInfo.password}
+              className={`px-3 py-2 text-sm font-medium text-white rounded transition-colors ${
+                !userInfo.username || !userInfo.password
+                  ? "bg-gray-500 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
             >
               Sign in
             </button>
