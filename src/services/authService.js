@@ -16,7 +16,7 @@ const authService = {
     });
     // console.log(res.data);
 
-    return res.data;
+    return res;
   },
 
   register: async (data, config = {}) => {

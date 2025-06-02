@@ -43,9 +43,9 @@ const Login = () => {
         password,
       });
 
-      if (response.success) {
-        localStorage.setItem("token", response.token);
-        const payload = response.token.split(".")[1];
+      if (response.data.success) {
+        localStorage.setItem("token", response.data.token);
+        const payload = response.data.token.split(".")[1];
         const decoded = JSON.parse(atob(payload));
 
         if (decoded.role === "user") {
@@ -53,27 +53,11 @@ const Login = () => {
         } else {
           navigate("/dashboard");
         }
-
-        // navigate("/dashboard");
       }
-
-      // if (response.success) {
-      //   navigate("/varification", { state: { identifier: username } });
-      // } else {
-      //   // Handle specific error messages from backend
-      //   if (response.message.includes("username")) {
-      //     setErrors({ username: response.message, password: "" });
-      //   } else if (response.message.includes("password")) {
-      //     setErrors({ username: "", password: response.message });
-      //   } else {
-      //     SweetAlert.errorAlert(
-      //       response.message || "Login failed. Please try again."
-      //     );
-      //   }
-      // }
     } catch (error) {
       console.error("Server error:", error);
-      SweetAlert.errorAlert("Something went wrong. Please try again later.");
+      // console.log(error.response.data.error);
+      SweetAlert.errorAlert(error.response.data.error);
     }
   };
 
