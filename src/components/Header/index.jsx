@@ -2,14 +2,24 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 import { FaRightToBracket, FaUserPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Tarunno.png";
-import useAuthUser from "../../hooks/useAuthUser";
 import authService from "../../services/authService";
 import { getBanglaDate } from "../../utils/getBanglaDate";
 import { getBanglaHijriDate } from "../../utils/getBanglaHijriDate";
 
 const Header = () => {
   const today = new Date();
-  const user = useAuthUser();
+  const token = localStorage.getItem("token");
+  let user = null;
+
+  if (token) {
+    try {
+      const payload = token.split(".")[1];
+      const decodedPayload = atob(payload);
+      user = JSON.parse(decodedPayload);
+    } catch (error) {
+      console.error("Invalid token:", error);
+    }
+  }
 
   const engDay = today.toLocaleDateString("en-US", { weekday: "long" });
   const engDate = today.toLocaleDateString("en-GB", {
@@ -55,15 +65,15 @@ const Header = () => {
         <div className="flex items-center gap-3 font-medium">
           {user ? (
             <div className="flex items-center gap-2 cursor-pointer">
-              <span>{user.name}</span>
-              {user.role !== "user" && (
+              <span>{user?.name}</span>
+              {user?.role !== "user" && (
                 <>
                   <span className="text-xs text-gray-400">|</span>
                   <span
                     className="text-xs text-gray-400"
                     onClick={() => navigate("/dashboard")}
                   >
-                    ({user.role})
+                    ({user?.role})
                   </span>
                 </>
               )}
